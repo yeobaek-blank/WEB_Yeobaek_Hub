@@ -1,29 +1,56 @@
-# 🌐 YeobaekHub
+# YeobaekHub
 
-AI 어시스턴트와 함께하는 개발자 커뮤니티 포털  
-초보자도 실행할 수 있도록 친절한 설명서와 함께합니다 😊
+YeobaekHub는 개발자 커뮤니티를 위한 인터랙티브 웹 포털입니다. React와 TypeScript, Vite를 기반으로 만들어졌으며, AI 챗봇, 프로젝트 소개, 연구실 안내 등 다양한 기능을 제공합니다. 이 문서는 프로젝트를 처음 실행하는 사용자를 위한 사용 설명서입니다.
 
----
+## 실행 방법
 
-## 📁 프로젝트 소개
+1. Node.js 설치  
+이 프로젝트는 Node.js가 필요합니다. [https://nodejs.org](https://nodejs.org)에서 최신 LTS 버전을 설치해주세요. 설치 후 아래 명령어로 버전을 확인하세요:
+node -v
+npm -v
 
-YeobaekHub는 AI 챗봇, 연구실 소개, 프로젝트 현황, 기술 스택 안내 등의 기능을 제공하는 인터랙티브 웹 포털입니다.  
-React 기반으로 만들어졌으며, 누구나 쉽게 클론 후 실행해볼 수 있도록 구성되어 있습니다.
-
----
-
-## 📦 프로젝트 실행 방법 (처음이라면 꼭 읽어보세요!)
-
-### ✅ 1. Node.js 설치
-
-- 이 프로젝트는 [Node.js](https://nodejs.org/)가 필요합니다.
-- 아래 중 하나를 설치하세요:
-  - 권장 버전: **Node.js 18.x 이상**
-  - 설치가 완료되면 터미널에서 아래 명령어로 확인해보세요:
-
-```bash
+2. 프로젝트 클론  
+아래 명령어로 코드를 다운로드하고 폴더로 이동합니다:
+git clone https://github.com/yeobaek-blank/WEB_Yeobaek_Hub.git
+cd WEB_Yeobaek_Hub
 
 
-<img width="880" height="512" alt="image" src="https://github.com/user-attachments/assets/965cb6df-b697-4b2d-aded-43ee865484b4" />
+3. 패키지 설치  
+필요한 라이브러리를 설치합니다:
+npm install
 
-<img width="896" height="423" alt="image" src="https://github.com/user-attachments/assets/63b9ec28-1ed6-4082-868e-ec085ca1d2c4" />
+
+4. 개발 서버 실행  
+로컬에서 프로젝트를 실행합니다:
+npm run dev
+
+성공적으로 실행되면 브라우저에서 `http://localhost:5173` 주소로 접속해 확인할 수 있습니다.
+
+## 주요 명령어 요약
+
+- `npm install`: 패키지 설치  
+- `npm run dev`: 개발 서버 실행  
+- `npm run build`: 배포용 빌드 생성  
+- `npm run preview`: 빌드 결과물 미리보기  
+
++) 폴더 구조
+WEB_Yeobaek_Hub/
+├── public/ # 정적 파일
+├── src/
+│ ├── YeobaekHub.tsx # 메인 컴포넌트
+│ ├── App.tsx # 앱 진입점
+│ ├── main.tsx # React DOM 렌더링
+│ └── ...
+├── package.json # 의존성 및 스크립트 정의
+├── tsconfig.json # TypeScript 설정
+└── vite.config.ts # Vite 설정
+
+
+++) **자주 묻는 질문 (FAQ)**
+
+Q. `npm run dev` 실행했는데 브라우저에서 열리지 않아요  
+A. `node_modules` 폴더가 잘못 설치되었을 수 있습니다. 아래 명령어를 입력해 재설치하세요:  
+rm -rf node_modules
+npm install
+
+
