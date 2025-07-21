@@ -43,16 +43,16 @@ npm run dev
 - `npm run preview`: 빌드 결과물 미리보기  
 
 +) 폴더 구조
-WEB_Yeobaek_Hub/
-├── public/ # 정적 파일
-├── src/
-│ ├── YeobaekHub.tsx # 메인 컴포넌트
-│ ├── App.tsx # 앱 진입점
-│ ├── main.tsx # React DOM 렌더링
-│ └── ...
-├── package.json # 의존성 및 스크립트 정의
-├── tsconfig.json # TypeScript 설정
-└── vite.config.ts # Vite 설정
+WEB_Yeobaek_Hub/  
+├── public/ # 정적 파일  
+├── src/  
+│ ├── YeobaekHub.tsx # 메인 컴포넌트  
+│ ├── App.tsx # 앱 진입점    
+│ ├── main.tsx # React DOM 렌더링  
+│ └── ...  
+├── package.json # 의존성 및 스크립트 정의  
+├── tsconfig.json # TypeScript 설정    
+└── vite.config.ts # Vite 설정  
 
 
 ++) **자주 묻는 질문 (FAQ)**
