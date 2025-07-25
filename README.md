@@ -63,3 +63,12 @@ rm -rf node_modules
 npm install
 
 
+__________________________25.07.25 2차수정 README
+1. App/tsx 전체적으로 수정하였음
+2. vite.config.ts 내용 전반적으로 수정
+3. button.tsx 신설 (추후 챗봇 애니메이션 기능을 위해 구축함)
+4. tailwind,config.js 코드 약간 수정하였음
+5. index.css 코드 수정
+
+button 코드는 src 안에 새 문서 'component' 를 만들고 그 안에 새 문저 'ui'를 만들고 그 안에 'button.tsx' 를 만들면 됩니다. 앞으로 UI 를 위한 걸 여기에 저장하시면 됩니다. 
+
