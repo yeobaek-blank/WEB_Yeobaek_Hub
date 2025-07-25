@@ -1,299 +1,174 @@
-import  { useState } from 'react';
-import { MessageCircle, Users, Code, Rocket, Github, Instagram, Book, Send, X } from 'lucide-react';
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { MessageCircle, X, Send } from "lucide-react";
 
-const YeobaekHub = () => {
-  const [isChatOpen, setIsChatOpen] = useState(false);
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: '안녕하세요! Yeobaek Hub에 오신 것을 환영합니다. 궁금한 것이 있으시면 언제든지 물어보세요!' }
-  ]);
-  const [inputMessage, setInputMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  // 클로드 API 호출 함수 (실제 구현시에는 백엔드에서 처리해야 함)
-  const callClaudeAPI = async (message:any) => {
-    // 실제 구현에서는 여기에 클로드 API 호출 코드가 들어갑니다
-    // 보안상 API 키는 백엔드에서 처리해야 합니다
-    
-    // 데모용 응답
-    const demoResponses = [
-      "Yeobaek Hub는 AI와 프로그래밍 기술을 연구하는 동아리입니다. 다양한 프로젝트를 통해 실무 경험을 쌓을 수 있어요!",
-      "저희 동아리에서는 Python, JavaScript, React, AI/ML 등 다양한 기술 스택을 다룹니다.",
-      "프로젝트에 참여하고 싶으시다면 Get Started 페이지를 확인해보세요. 언제든 환영합니다!",
-      "Lab Info에서 저희 연구실의 주요 연구 분야와 진행 중인 프로젝트들을 확인할 수 있습니다."
-    ];
-    
-    return demoResponses[Math.floor(Math.random() * demoResponses.length)];
-  };
-
-  const handleSendMessage = async () => {
-    if (!inputMessage.trim()) return;
-    
-    const userMessage = { role: 'user', content: inputMessage };
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
-    setIsLoading(true);
-    
-    try {
-      const response = await callClaudeAPI(inputMessage);
-      const assistantMessage = { role: 'assistant', content: response };
-      setMessages(prev => [...prev, assistantMessage]);
-    } catch (error) {
-      console.error('API 호출 오류:', error);
-      const errorMessage = { role: 'assistant', content: '죄송합니다. 일시적인 오류가 발생했습니다.' };
-      setMessages(prev => [...prev, errorMessage]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const techStacks = [
-    { name: 'Python', icon: '🐍', color: 'bg-yellow-500' },
-    { name: 'JavaScript', icon: '⚡', color: 'bg-yellow-400' },
-    { name: 'React', icon: '⚛️', color: 'bg-blue-400' },
-    { name: 'Node.js', icon: '🟢', color: 'bg-green-500' },
-    { name: 'AI/ML', icon: '🤖', color: 'bg-purple-500' },
-    { name: 'Firebase', icon: '🔥', color: 'bg-orange-500' }
-  ];
-
-  const projects = [
-    {
-      title: "AI 챗봇 개발",
-      description: "클로드 API를 활용한 지능형 대화 시스템",
-      tech: ["React", "Node.js", "Claude API"],
-      status: "진행중"
-    },
-    {
-      title: "웹 자동화 도구",
-      description: "업무 효율성을 위한 자동화 솔루션",
-      tech: ["Python", "Selenium", "Flask"],
-      status: "완료"
-    },
-    {
-      title: "데이터 분석 플랫폼",
-      description: "빅데이터 처리 및 시각화 시스템",
-      tech: ["Python", "Pandas", "React"],
-      status: "기획중"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      {/* Navigation */}
-      <nav className="bg-gray-800 border-b border-gray-700 px-4 py-3">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-              <Code className="w-5 h-5" />
-            </div>
-            <span className="text-xl font-bold">Yeobaek Hub</span>
-          </div>
-          <div className="hidden md:flex space-x-8">
-            <a href="#" className="hover:text-purple-400 transition-colors">Home</a>
-            <a href="#" className="hover:text-purple-400 transition-colors">Community</a>
-            <a href="#" className="hover:text-purple-400 transition-colors">Lab Info</a>
-            <button className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg transition-colors">
-              Get Started
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto p-4">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Left Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* AI Assistant Section */}
-            <div className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-2xl p-8 text-center">
-              <h1 className="text-3xl font-bold mb-4">AI-based Automation Assistant</h1>
-              <p className="text-purple-100 mb-6">클로드 API를 활용한 지능형 어시스턴트로 더 스마트한 개발 경험을 제공합니다</p>
-              <button 
-                onClick={() => setIsChatOpen(true)}
-                className="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span>Start Assistant</span>
-              </button>
-            </div>
-
-            {/* Lab Info */}
-            <div className="bg-gray-800 rounded-2xl p-6">
-              <h2 className="text-xl font-bold mb-4 flex items-center space-x-2">
-                <Users className="w-6 h-6 text-purple-400" />
-                <span>Lab Info</span>
-              </h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="bg-gray-700 p-4 rounded-lg">
-                  <h3 className="font-semibold text-purple-300">주요 연구 분야</h3>
-                  <ul className="mt-2 space-y-1 text-sm text-gray-300">
-                    <li>• Modular Command Processing</li>
-                    <li>• Prompt Engineering</li>
-                    <li>• Intent Parsing</li>
-                    <li>• LLM API Integration</li>
-                  </ul>
-                </div>
-                <div className="bg-gray-700 p-4 rounded-lg">
-                  <h3 className="font-semibold text-purple-300">연구실 현황</h3>
-                  <div className="mt-2 space-y-2 text-sm">
-                    <div className="flex justify-between">
-                      <span>활동 멤버</span>
-                      <span className="text-purple-400">15명</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>진행 프로젝트</span>
-                      <span className="text-purple-400">8개</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>완료 프로젝트</span>
-                      <span className="text-purple-400">23개</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Main Projects */}
-            <div className="bg-gray-800 rounded-2xl p-6">
-              <h2 className="text-xl font-bold mb-4 flex items-center space-x-2">
-                <Rocket className="w-6 h-6 text-purple-400" />
-                <span>Main Projects</span>
-              </h2>
-              <div className="space-y-4">
-                {projects.map((project, index) => (
-                  <div key={index} className="bg-gray-700 p-4 rounded-lg">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="font-semibold">{project.title}</h3>
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                        project.status === '완료' ? 'bg-green-600' : 
-                        project.status === '진행중' ? 'bg-blue-600' : 'bg-yellow-600'
-                      }`}>
-                        {project.status}
-                      </span>
-                    </div>
-                    <p className="text-gray-300 text-sm mb-3">{project.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, techIndex) => (
-                        <span key={techIndex} className="bg-purple-600 px-2 py-1 text-xs rounded">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right Sidebar */}
-          <div className="space-y-6">
-            {/* Tech Stack */}
-            <div className="bg-gray-800 rounded-2xl p-6">
-              <h2 className="text-lg font-bold mb-4">기술 스택</h2>
-              <div className="grid grid-cols-2 gap-3">
-                {techStacks.map((tech, index) => (
-                  <div key={index} className="bg-gray-700 p-3 rounded-lg text-center hover:bg-gray-600 transition-colors">
-                    <div className="text-2xl mb-1">{tech.icon}</div>
-                    <div className="text-sm font-medium">{tech.name}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="bg-gray-800 rounded-2xl p-6">
-              <h2 className="text-lg font-bold mb-4">관련 페이지</h2>
-              <div className="space-y-3">
-                <a href="#" className="flex items-center space-x-3 bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors">
-                  <Instagram className="w-5 h-5 text-pink-400" />
-                  <span>Instagram</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors">
-                  <Github className="w-5 h-5 text-gray-300" />
-                  <span>GitHub</span>
-                </a>
-                <a href="#" className="flex items-center space-x-3 bg-gray-700 p-3 rounded-lg hover:bg-gray-600 transition-colors">
-                  <Book className="w-5 h-5 text-blue-400" />
-                  <span>Tistory</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Copyright */}
-            <div className="text-center text-gray-400 text-sm">
-              <p>© 2024 Yeobaek Hub</p>
-              <p>@yeobaek7.ub</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Chat Modal */}
-      {isChatOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-2xl w-full max-w-md h-96 flex flex-col">
-            <div className="flex items-center justify-between p-4 border-b border-gray-700">
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="font-semibold">Chatbot</span>
-              </div>
-              <button 
-                onClick={() => setIsChatOpen(false)}
-                className="text-gray-400 hover:text-white"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-            
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {messages.map((message, index) => (
-                <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs px-4 py-2 rounded-lg ${
-                    message.role === 'user' 
-                      ? 'bg-purple-600 text-white' 
-                      : 'bg-gray-700 text-gray-100'
-                  }`}>
-                    {message.content}
-                  </div>
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex justify-start">
-                  <div className="bg-gray-700 px-4 py-2 rounded-lg text-gray-100">
-                    <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse"></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.1s'}}></div>
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-pulse" style={{animationDelay: '0.2s'}}></div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            
-            <div className="p-4 border-t border-gray-700">
-              <div className="flex space-x-2">
-                <input
-                  type="text"
-                  value={inputMessage}
-                  onChange={(e) => setInputMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                  placeholder="메시지를 입력하세요..."
-                  className="flex-1 bg-gray-700 text-white px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  disabled={isLoading}
-                />
-                <button
-                  onClick={handleSendMessage}
-                  disabled={isLoading || !inputMessage.trim()}
-                  className="bg-purple-600 hover:bg-purple-700 disabled:opacity-50 px-4 py-2 rounded-lg transition-colors"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+const fadeInUp = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-export default YeobaekHub;
+const features = [
+  { title: "AI 기반 자동화", description: "AI + MCP 기반 자동화 어시스턴트, 추천 시스템 팀, 기록 정보 저장소 등 개발" },
+  { title: "플랫폼 구축", description: "학과 커뮤니티 연계 정보 플랫폼 구축, 지속 가능한 시스템 설계" },
+  { title: "실천적 학습", description: "정보학 기반 실험과 기술 융합 프로젝트를 통한 체계적 역량 개발" },
+];
+
+const projects = [
+  { title: "기획", description: "전공(정보학) 기반 문제 정의, 실험 구조 설계, UI 흐름 구성" },
+  { title: "실험", description: "Lab별 주제 중심 실험 수행 (Automation, Archive, AICurator 등)" },
+  { title: "기술", description: "Python, Firebase, Prompt Engineering, API 연동 실습" },
+  { title: "문서화", description: "실험 흐름도, 프로젝트 설계, 결과물 정리 및 공유" },
+  { title: "공유", description: "통합 플랫폼(HUB) 구축 및 결과물 기록화/공유" },
+  { title: "대외활동", description: "공모전, 해커톤, 논문 리뷰 및 프로젝트 확장" },
+];
+
+const labs = [
+  { title: "Automation Lab", status: "활동 중", description: "Gemini 기반 자동화 프로젝트 구현, MCP 구축 후 Claude 연동을 통한 어시스턴트(MCP 기반) 구현", tag: "AI & Automation", color: "green" },
+  { title: "Archive Lab", status: "활동 예정", description: "논문 및 학술자료 구조화, 저장소(DSPace/Notion) 구축", tag: "Data Management", color: "blue" },
+  { title: "AICurator Lab", status: "활동 예정", description: "KDC 기반 추천 시스템 + Gemini 프로젝트 구조 설계", tag: "AI Curation", color: "purple" },
+  { title: "Idea Lab", status: "활동 중", description: "전공 기반 아이디어 발굴 및 구조화", tag: "Innovation", color: "orange" },
+];
+
+const techs = ["Python", "MySQL", "GitHub", "Firebase", "SPSS", "Notion", "Colab", "AI/ML"];
+
+export default function App() {
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [messages, setMessages] = useState([
+    { role: "assistant", content: "안녕하세요! 무엇을 도와드릴까요?" },
+  ]);
+  const [input, setInput] = useState("");
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+    setMessages((prev) => [...prev, { role: "user", content: input }]);
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { role: "assistant", content: "예시 응답입니다." }]);
+    }, 1000);
+    setInput("");
+  };
+
+  return (
+    <div className="font-sans text-gray-900 bg-white">
+      {/* Header */}
+      <header className="flex justify-between items-center px-8 py-4 bg-white shadow-sm sticky top-0 z-50">
+        <div className="text-xl font-bold text-blue-700">Yeobaek Hub</div>
+        <nav className="space-x-6 text-sm font-medium">
+          <a href="#goal" className="hover:text-blue-600">동아리 소개</a>
+          <a href="#lab" className="hover:text-blue-600">Lab track</a>
+          <a href="#projects" className="hover:text-blue-600">주요 활동</a>
+          <a href="#past" className="hover:text-blue-600">과거 활동</a>
+          <button className="text-white bg-blue-700 rounded px-3 py-1 text-sm">F&Q</button>
+        </nav>
+      </header>
+
+      {/* Hero */}
+      <section className="flex flex-col-reverse lg:flex-row justify-between items-center px-8 py-20 bg-gradient-to-r from-blue-600 to-blue-400 text-white">
+        <div className="space-y-5 max-w-xl">
+          <h1 className="text-4xl font-bold leading-tight">0과 1 사이, 지식의 '여백'을 채우다!</h1>
+          <p className="text-sm">문헌정보학과 학생들이 모여 정보의 바다를 항해하고, 지혜의 시스템을 구축하며, 함께 성장하는 이야기입니다.</p>
+          <div className="space-x-4">
+            <button className="bg-white text-blue-600 px-4 py-2 rounded font-medium">프로젝트 들러보기</button>
+            <button className="border border-white px-4 py-2 rounded">동아리 참여하기</button>
+          </div>
+        </div>
+        <img src="/yeobaek-cat.png" alt="Mascot" className="w-60" />
+      </section>
+
+      {/* Main Goal */}
+      <section id="goal" className="py-20 px-8 text-center">
+        <h2 className="text-2xl font-bold mb-2">Main Goal</h2>
+        <p className="text-gray-600 mb-12">정보학 기반 실험과 기술 융합 프로젝트를 통한 실천적 학습</p>
+        <div className="grid md:grid-cols-3 gap-8">
+          {features.map((f, i) => (
+            <motion.div key={i} className="bg-blue-50 rounded-xl p-6 shadow-sm" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+              <h3 className="text-lg font-semibold mb-2">{f.title}</h3>
+              <p className="text-sm text-gray-700">{f.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Main Project */}
+      <section id="projects" className="py-20 px-8 bg-gray-50 text-center">
+        <h2 className="text-2xl font-bold mb-2">Main Project</h2>
+        <p className="text-gray-600 mb-12">학습을 통해 얻은 지식을 바탕으로 공모전, 대외활동 등에 참여합니다</p>
+        <div className="grid md:grid-cols-3 gap-6">
+          {projects.map((p, i) => (
+            <div key={i} className="bg-white p-6 rounded-xl shadow">
+              <h4 className="font-semibold text-blue-700 mb-2">{p.title}</h4>
+              <p className="text-sm text-gray-700">{p.description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Lab Track */}
+      <section id="lab" className="py-20 px-8 text-center">
+        <h2 className="text-2xl font-bold mb-2">Lab Track</h2>
+        <p className="text-gray-600 mb-12">각 Lab별 특화된 연구와 실험을 진행합니다</p>
+        <div className="grid md:grid-cols-2 gap-6">
+          {labs.map((l, i) => (
+            <div key={i} className={`rounded-xl p-5 shadow-sm border-l-8 border-${l.color}-400 text-left bg-${l.color}-50`}>
+              <h4 className="font-semibold mb-1">{l.title} <span className={`ml-2 text-sm text-${l.color}-600`}>({l.status})</span></h4>
+              <p className="text-sm text-gray-700 mb-1">{l.description}</p>
+              <span className={`text-xs text-${l.color}-500 font-medium`}>{l.tag}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 기술 플랫폼 */}
+      <section className="py-20 px-8 bg-gray-50 text-center">
+        <h2 className="text-2xl font-bold mb-6">활용 기술 및 플랫폼</h2>
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-4 place-items-center">
+          {techs.map((tech, i) => (
+            <div key={i} className="rounded-lg px-4 py-2 bg-white shadow text-sm font-medium">{tech}</div>
+          ))}
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-20 px-8 text-center bg-gradient-to-b from-blue-400 to-blue-600 text-white">
+        <h2 className="text-xl font-bold mb-4">함께 성장할 준비가 되셨나요?</h2>
+        <p className="mb-6 text-sm">여백과 함께 지식의 경계를 넓히고, 미래의 정보 전문가로 성장해보세요.</p>
+        <div className="space-x-4">
+          <button className="bg-white text-blue-700 px-4 py-2 rounded font-medium">동아리 지원 양식 다운로드</button>
+          <button className="border border-white px-4 py-2 rounded">동아리 지원하기</button>
+        </div>
+      </footer>
+
+      {/* Chatbot */}
+      <div className="fixed bottom-6 right-6 z-50">
+        {isChatOpen ? (
+          <div className="w-80 h-96 bg-white rounded-xl shadow-xl p-4 flex flex-col">
+            <div className="flex justify-between items-center mb-2">
+              <h3 className="font-bold text-blue-700">Yeobaek Chat</h3>
+              <button onClick={() => setIsChatOpen(false)}><X className="w-5 h-5" /></button>
+            </div>
+            <div className="flex-1 overflow-y-auto space-y-2 mb-2">
+              {messages.map((m, i) => (
+                <div key={i} className={`text-sm ${m.role === "assistant" ? "text-left" : "text-right"}`}>
+                  <span className="inline-block px-3 py-2 rounded bg-gray-100 text-gray-800">{m.content}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center border-t pt-2">
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className="flex-1 px-2 py-1 border rounded text-sm"
+                placeholder="메시지를 입력하세요"
+              />
+              <button onClick={handleSend} className="ml-2 text-blue-600"><Send className="w-5 h-5" /></button>
+            </div>
+          </div>
+        ) : (
+          <button onClick={() => setIsChatOpen(true)} className="w-14 h-14 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg">
+            <MessageCircle className="w-6 h-6" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
